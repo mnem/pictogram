@@ -1,0 +1,17 @@
+//
+//  Pictogram.h
+//
+//  Created by David Wagner on 05/07/2012.
+//  Copyright (c) 2012 Noise & Heat. All rights reserved.
+//
+
+#ifndef Pictogram_h
+#define Pictogram_h
+
+#include <OpenGLES/ES2/gl.h>
+#include <OpenGLES/ES2/glext.h>
+
+#include "core/PGDataTypes.h"
+#include "render/PGProgramCompiler.h"
+
+#endif

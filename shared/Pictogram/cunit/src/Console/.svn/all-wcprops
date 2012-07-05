@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/cunit/!svn/ver/128/trunk/CUnit/Sources/Console
+END
+Console.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/cunit/!svn/ver/128/trunk/CUnit/Sources/Console/Console.c
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/cunit/!svn/ver/125/trunk/CUnit/Sources/Console/Makefile.am
+END

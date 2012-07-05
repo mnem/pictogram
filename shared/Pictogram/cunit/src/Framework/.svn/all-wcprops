@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/cunit/!svn/ver/139/trunk/CUnit/Sources/Framework
+END
+CUError.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/cunit/!svn/ver/128/trunk/CUnit/Sources/Framework/CUError.c
+END
+MyMem.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/cunit/!svn/ver/128/trunk/CUnit/Sources/Framework/MyMem.c
+END
+TestRun.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/cunit/!svn/ver/133/trunk/CUnit/Sources/Framework/TestRun.c
+END
+TestDB.c
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/cunit/!svn/ver/139/trunk/CUnit/Sources/Framework/TestDB.c
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/cunit/!svn/ver/125/trunk/CUnit/Sources/Framework/Makefile.am
+END
+Util.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/cunit/!svn/ver/128/trunk/CUnit/Sources/Framework/Util.c
+END

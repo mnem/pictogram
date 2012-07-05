@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/cunit/!svn/ver/129/trunk/CUnit/Sources/Test
+END
+test_cunit.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/cunit/!svn/ver/128/trunk/CUnit/Sources/Test/test_cunit.c
+END
+Jamfile
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/cunit/!svn/ver/125/trunk/CUnit/Sources/Test/Jamfile
+END
+test_cunit.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/cunit/!svn/ver/128/trunk/CUnit/Sources/Test/test_cunit.h
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/cunit/!svn/ver/125/trunk/CUnit/Sources/Test/Makefile.am
+END
