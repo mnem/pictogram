@@ -12,6 +12,25 @@
 extern "C" {
 #endif
 
+enum
+{
+	PGR_OK = 0, // The only one with a guaranteed value.
+	PGR_LazyGenericError
+}
+PGResultEnum;
+
+enum
+{
+	PGL_Debug,
+	PGL_Info,
+	PGL_Warn,
+	PGL_Error,
+	PGL_Fatal
+}
+PGLogLevelEnum;
+
+typedef int PGResult;
+typedef int PGLogLevel;
 typedef struct LMPContext LMPContext;
 	
 #ifdef __cplusplus

@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 	
-void pgRunAllTests();
+void pgRunAllTests(const char *testAssetsRoot);
 	
 #ifdef __cplusplus
 }

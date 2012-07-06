@@ -12,8 +12,8 @@
 extern "C" {
 #endif
 
-void pgCompileShaderFile(GLuint *shader, GLenum type, char *file, GLchar *log);
-void pgCompileShaderString(GLuint *shader, GLenum type, char *source, GLchar *log);
+PGResult pgCompileShaderFile(GLuint *shader, GLenum type, const char *file, GLchar *log);
+PGResult pgCompileShaderString(GLuint *shader, GLenum type, const char *source, GLchar *log);
 
 #ifdef __cplusplus
 }

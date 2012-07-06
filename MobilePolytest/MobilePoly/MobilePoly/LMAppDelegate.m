@@ -29,7 +29,8 @@
 	self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 	
-	pgRunAllTests();
+	NSString *testRoot = [[NSBundle mainBundle] pathForResource:@"test_01" ofType:@"fsh" inDirectory:@"test_assets"];
+	pgRunAllTests([[testRoot stringByDeletingLastPathComponent] cStringUsingEncoding:NSUTF8StringEncoding]);
 	
     return YES;
 }

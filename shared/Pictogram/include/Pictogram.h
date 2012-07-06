@@ -12,6 +12,8 @@
 #include <OpenGLES/ES2/glext.h>
 
 #include "core/PGDataTypes.h"
+
+#include "util/PGLog.h"
 #include "render/PGProgramCompiler.h"
 
 #endif
