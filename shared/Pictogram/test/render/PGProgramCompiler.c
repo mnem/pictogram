@@ -5,6 +5,7 @@
 //  Copyright (c) 2012 Noise & Heat. All rights reserved.
 //
 
+#include <stdlib.h>
 #include "CUnit/Basic.h"
 #include "../TestHelpers.h"
 #include "Pictogram.h"
@@ -13,18 +14,17 @@ static void test_create_fragment_shader_from_file(void)
 {
 	GLuint shader = 0;
 	const char testFile[] = "test_01.fsh";
-	const size_t rootLen = strlen(TestAssetsRoot + 1 /* '/' */);
-	const size_t nameLen = strlen(testFile);
-	const size_t pathLen =  rootLen + nameLen;
-	char path[pathLen + 1];
+	char *path = pgMallocTestAssetPath(testFile);
+	char *log = NULL;
 	
-	strncpy(path, TestAssetsRoot, pathLen);
-	strncat(path, "/", pathLen);
-	strncat(path, testFile, pathLen);
+	PGResult result = pgCompileShaderFile(&shader, GL_FRAGMENT_SHADER, path, &log);
 	
-	pgCompileShaderFile(&shader, GL_FRAGMENT_SHADER, path, NULL);
-	
+	CU_ASSERT_EQUAL(result, PGR_OK);
 	CU_ASSERT_NOT_EQUAL(shader, 0);
+	CU_ASSERT_NOT_EQUAL(log, NULL);
+	
+	free(path);
+	free(log);
 }
 
 static void test_create_fragment_shader_from_string(void)

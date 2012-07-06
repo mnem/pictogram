@@ -6,11 +6,24 @@
 //  Copyright (c) 2012 Noise & Heat. All rights reserved.
 //
 
+#include <stdlib.h>
 #include "CUnit/Basic.h"
 
 extern CU_pSuite PGProgramCompilerTestSetup(void);
 
 const char *TestAssetsRoot = "";
+
+char *pgMallocTestAssetPath(const char *file)
+{
+	const size_t rootLen = strlen(TestAssetsRoot + 1 /* '/' */);
+	const size_t nameLen = strlen(file);
+	const size_t pathLen =  rootLen + nameLen;
+	char *path = malloc(pathLen + 1);
+	strncpy(path, TestAssetsRoot, pathLen);
+	strncat(path, "/", pathLen);
+	strncat(path, file, pathLen);
+	return path;
+}
 
 int pgRunAllTests(const char *testAssetsRoot)
 {

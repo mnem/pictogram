@@ -19,6 +19,7 @@
 		BB6AEC9915A635CD00492AEB /* PGProgramCompiler.c in Sources */ = {isa = PBXBuildFile; fileRef = BB6AEC9615A62F8800492AEB /* PGProgramCompiler.c */; };
 		BB6AEC9E15A63F2000492AEB /* test_assets in Resources */ = {isa = PBXBuildFile; fileRef = BB6AEC9D15A63F2000492AEB /* test_assets */; };
 		BB8FC50915A7436700E10A87 /* PGLog.c in Sources */ = {isa = PBXBuildFile; fileRef = BB8FC50815A7436700E10A87 /* PGLog.c */; };
+		BB8FC50C15A79A3100E10A87 /* PGFile.c in Sources */ = {isa = PBXBuildFile; fileRef = BB8FC50B15A79A3100E10A87 /* PGFile.c */; };
 		BBD5279415A0E56F005995F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD5279315A0E56F005995F7 /* UIKit.framework */; };
 		BBD5279615A0E56F005995F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD5279515A0E56F005995F7 /* Foundation.framework */; };
 		BBD5279815A0E56F005995F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD5279715A0E56F005995F7 /* CoreGraphics.framework */; };
@@ -72,6 +73,8 @@
 		BB6AEC9D15A63F2000492AEB /* test_assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test_assets; sourceTree = "<group>"; };
 		BB8FC50715A73F0500E10A87 /* PGLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGLog.h; sourceTree = "<group>"; };
 		BB8FC50815A7436700E10A87 /* PGLog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGLog.c; sourceTree = "<group>"; };
+		BB8FC50A15A799FC00E10A87 /* PGFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGFile.h; sourceTree = "<group>"; };
+		BB8FC50B15A79A3100E10A87 /* PGFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGFile.c; sourceTree = "<group>"; };
 		BBD5278F15A0E56F005995F7 /* MobilePoly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobilePoly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD5279315A0E56F005995F7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BBD5279515A0E56F005995F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -269,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				BB8FC50815A7436700E10A87 /* PGLog.c */,
+				BB8FC50B15A79A3100E10A87 /* PGFile.c */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -277,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				BB8FC50715A73F0500E10A87 /* PGLog.h */,
+				BB8FC50A15A799FC00E10A87 /* PGFile.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 				BB37A01A15A603470051321F /* Util.c in Sources */,
 				BB6AEC9915A635CD00492AEB /* PGProgramCompiler.c in Sources */,
 				BB8FC50915A7436700E10A87 /* PGLog.c in Sources */,
+				BB8FC50C15A79A3100E10A87 /* PGFile.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@
 #include "core/PGDataTypes.h"
 
 #include "util/PGLog.h"
+#include "util/PGFile.h"
 #include "render/PGProgramCompiler.h"
 
 #endif

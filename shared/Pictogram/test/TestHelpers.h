@@ -13,6 +13,7 @@ extern "C" {
 #endif
 	
 extern const char *TestAssetsRoot;
+extern char *pgMallocTestAssetPath(const char *file);
 
 #define CREATE_SUITE(name, initFn, cleanFn) CU_pSuite suite = CU_add_suite((name " suite"), (initFn), (cleanFn))
 #define ADD_TEST(suite, fn) CU_add_test((suite), (#fn), (fn))

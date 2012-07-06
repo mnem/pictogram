@@ -12,8 +12,23 @@
 extern "C" {
 #endif
 
-PGResult pgCompileShaderFile(GLuint *shader, GLenum type, const char *file, GLchar *log);
-PGResult pgCompileShaderString(GLuint *shader, GLenum type, const char *source, GLchar *log);
+/**
+ * Compiles the specified source file into a shader. You should
+ * glDeleteShader() the shader when you are finished with it.
+ *
+ * If log is not null, the compilation log is returned. You must
+ * free() the log when you are finished with it.
+ */
+PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, GLchar **outCompileLog);
+
+/**
+ * Compiles the specified source string into a shader. You should
+ * glDeleteShader() the shader when you are finished with it.
+ *
+ * If log is not null, the compilation log is returned. You must
+ * free() the log when you are finished with it.
+ */
+PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outCompileLog);
 
 #ifdef __cplusplus
 }

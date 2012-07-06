@@ -5,69 +5,57 @@
 //  Copyright (c) 2012 Noise & Heat. All rights reserved.
 //
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <memory.h>
-#include <sys/stat.h>
-#include <errno.h>
 #include "Pictogram.h"
 
-static char* mallocStringFromFile(const char *file)
+PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, GLchar **outCompileLog)
 {
-	struct stat fileStat = { 0 };
-	char *string = NULL;
-	
-	pgLog(PGL_Info, "stat'ing %s", file);
-	if (0 == stat(file, &fileStat))
+	char *source = NULL;
+	if(PGR_OK != pgMallocStringFromFile(&source, file))
 	{
-		pgLog(PGL_Info, "%s size: %iB", file, fileStat.st_size);
-		
-		FILE *f = fopen(file, "r");
-		if (NULL != f) 
-		{
-			string = (char*)malloc(fileStat.st_size + 1);
-			size_t read = fread(string, 1, fileStat.st_size, f);
-			int closeErr = fclose(f);
-			string[read] = 0;
-
-			if (read != fileStat.st_size)
-			{
-				pgLog(PGL_Warn, "Could not read all bytes in %s. Expected to read %d, read %d", 
-								 file, read, fileStat.st_size);
-			}
-			if (0 != closeErr)
-			{
-				pgLog(PGL_Error, "Failed to close %s: %s", 
-								 file, strerror(errno));
-			}
-		}
-	}
-	else 
-	{
-		pgLog(PGL_Error, "Could not stat %s: %s", 
-			  file, strerror(errno));
+		pgLog(PGL_Error, "Could not load shader file %s", file);
+		free(source);
+		return PGR_CouldNotReadFile;
 	}
 	
-	return string;
-}
-
-PGResult pgCompileShaderFile(GLuint *shader, GLenum type, const char *file, GLchar *log)
-{
-	char *source = mallocStringFromFile(file);
-	
-	if (NULL == source)
-	{
-		return PGR_CouldNotReadShaderFile;
-	}
-	
-	pgLog(PGL_Info, "Shader source:\n%s", source);
+	PGResult result = pgCompileShaderString(outShader, type, source, outCompileLog);
 	
 	free(source);
 	
-	return PGR_OK;
+	return result;
 }
 
-PGResult pgompileShaderString(GLuint *shader, GLenum type, const char *source, GLchar *log)
+PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outCompileLog)
 {
+    *outShader = glCreateShader(type);
+    glShaderSource(*outShader, 1, &source, NULL);
+    glCompileShader(*outShader);
+
+	if (NULL != outCompileLog)
+	{
+		GLint logLength;
+		GLchar *log = NULL;
+		glGetShaderiv(*outShader, GL_INFO_LOG_LENGTH, &logLength);
+		if (logLength > 0) 
+		{
+			log = (GLchar *)malloc(logLength * sizeof(GLchar));
+			glGetShaderInfoLog(*outShader, logLength, &logLength, log);
+		}
+		else 
+		{
+			log = (GLchar *)malloc(sizeof(GLchar));
+			log[0] = 0;
+		}
+		*outCompileLog = log;
+	}
+    
+    GLint status;
+    glGetShaderiv(*outShader, GL_COMPILE_STATUS, &status);
+    if (GL_FALSE == status) 
+	{
+        glDeleteShader(*outShader);
+        return PGR_CouldNotCompileShader;
+    }
+
 	return PGR_OK;
 }
