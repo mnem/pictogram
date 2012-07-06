@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <sys/stat.h>
+#include <errno.h>
 #include "Pictogram.h"
 
 static char* mallocStringFromFile(const char *file)
@@ -25,9 +26,26 @@ static char* mallocStringFromFile(const char *file)
 		if (NULL != f) 
 		{
 			string = (char*)malloc(fileStat.st_size + 1);
-			fread(string, 1, fileStat.st_size, f);
-			string[fileStat.st_size] = 0;
+			size_t read = fread(string, 1, fileStat.st_size, f);
+			int closeErr = fclose(f);
+			string[read] = 0;
+
+			if (read != fileStat.st_size)
+			{
+				pgLog(PGL_Warn, "Could not read all bytes in %s. Expected to read %d, read %d", 
+								 file, read, fileStat.st_size);
+			}
+			if (0 != closeErr)
+			{
+				pgLog(PGL_Error, "Failed to close %s: %s", 
+								 file, strerror(errno));
+			}
 		}
+	}
+	else 
+	{
+		pgLog(PGL_Error, "Could not stat %s: %s", 
+			  file, strerror(errno));
 	}
 	
 	return string;
@@ -39,7 +57,7 @@ PGResult pgCompileShaderFile(GLuint *shader, GLenum type, const char *file, GLch
 	
 	if (NULL == source)
 	{
-		return PGR_LazyGenericError;
+		return PGR_CouldNotReadShaderFile;
 	}
 	
 	pgLog(PGL_Info, "Shader source:\n%s", source);

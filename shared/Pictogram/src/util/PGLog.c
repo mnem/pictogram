@@ -10,14 +10,10 @@
 #include <stdarg.h>
 #include "Pictogram.h"
 
-PGResult _pgLogv(PGLogLevel level, const char *message, ...)
+void _pgLogv(PGLogLevel level, const char *fmt, ...)
 {
-    va_list args;
-    va_start(args, message);
-	
-	vprintf(message, args);
-	
-	va_end(args);
-	
-	return PGR_OK;
+    va_list ap;
+    va_start(ap, fmt);
+	vprintf(fmt, ap);
+	va_end(ap);
 }

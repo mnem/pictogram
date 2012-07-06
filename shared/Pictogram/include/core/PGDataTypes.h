@@ -14,8 +14,9 @@ extern "C" {
 
 enum
 {
-	PGR_OK = 0, // The only one with a guaranteed value.
-	PGR_LazyGenericError
+	PGR_OK = 0 // The only one with a guaranteed value.
+,	PGR_LazyGenericError
+,	PGR_CouldNotReadShaderFile
 }
 PGResultEnum;
 

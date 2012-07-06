@@ -13,12 +13,13 @@ static void test_create_fragment_shader_from_file(void)
 {
 	GLuint shader = 0;
 	const char testFile[] = "test_01.fsh";
-	const size_t rootLen = strlen(TestAssetsRoot);
+	const size_t rootLen = strlen(TestAssetsRoot + 1 /* '/' */);
 	const size_t nameLen = strlen(testFile);
 	const size_t pathLen =  rootLen + nameLen;
 	char path[pathLen + 1];
 	
 	strncpy(path, TestAssetsRoot, pathLen);
+	strncat(path, "/", pathLen);
 	strncat(path, testFile, pathLen);
 	
 	pgCompileShaderFile(&shader, GL_FRAGMENT_SHADER, path, NULL);

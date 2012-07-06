@@ -12,10 +12,11 @@
 extern "C" {
 #endif
 
-#define pgLog(level, message, ...) _pgLogv((level), ("[%s:%s in %s] " message) , __FILE__, __LINE__, __func__, ## __VA_ARGS__)
+
+#define pgLog(level, message, ...) _pgLogv((level), ("[%s:%d] " message) , __FILE__, __LINE__, ## __VA_ARGS__)
 //#define pgLog(...) ;
 	
-PGResult _pgLogv(PGLogLevel level, const char *message, ...);
+void _pgLogv(PGLogLevel level, const char *fmt, ...);
 	
 #ifdef __cplusplus
 }
