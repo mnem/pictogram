@@ -10,10 +10,20 @@
 #include <stdarg.h>
 #include "Pictogram.h"
 
+static PGLogLevel MinimumLogLevel = PGL_Fatal;
+
 void _pgLogv(PGLogLevel level, const char *fmt, ...)
 {
-    va_list ap;
-    va_start(ap, fmt);
-	vprintf(fmt, ap);
-	va_end(ap);
+	if (level >= MinimumLogLevel) 
+	{
+		va_list ap;
+		va_start(ap, fmt);
+		vprintf(fmt, ap);
+		va_end(ap);
+	}
+}
+
+void pgSetLoggingLevel(PGLogLevel level)
+{
+	MinimumLogLevel = level;
 }

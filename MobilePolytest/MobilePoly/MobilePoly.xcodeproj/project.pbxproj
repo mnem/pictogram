@@ -38,6 +38,7 @@
 		BBD527BF15A0E56F005995F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD5279515A0E56F005995F7 /* Foundation.framework */; };
 		BBD527C715A0E56F005995F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD527C515A0E56F005995F7 /* InfoPlist.strings */; };
 		BBD527CA15A0E56F005995F7 /* MobilePolyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD527C915A0E56F005995F7 /* MobilePolyTests.m */; };
+		BBE9619C15A8B459007EDCE9 /* PGFile.c in Sources */ = {isa = PBXBuildFile; fileRef = BBE9619B15A8B459007EDCE9 /* PGFile.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		BBD527C615A0E56F005995F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BBD527C815A0E56F005995F7 /* MobilePolyTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobilePolyTests.h; sourceTree = "<group>"; };
 		BBD527C915A0E56F005995F7 /* MobilePolyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobilePolyTests.m; sourceTree = "<group>"; };
+		BBE9619B15A8B459007EDCE9 /* PGFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGFile.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				BB6AEC9D15A63F2000492AEB /* test_assets */,
+				BBE9619915A8B429007EDCE9 /* util */,
 				BB6AEC9515A62B8200492AEB /* render */,
 				BB6AEC9315A62B3800492AEB /* core */,
 				BB379FF215A603130051321F /* CUnit */,
@@ -378,6 +381,14 @@
 			path = ../../shared/Pictogram;
 			sourceTree = "<group>";
 		};
+		BBE9619915A8B429007EDCE9 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				BBE9619B15A8B459007EDCE9 /* PGFile.c */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -505,6 +516,7 @@
 				BB6AEC9915A635CD00492AEB /* PGProgramCompiler.c in Sources */,
 				BB8FC50915A7436700E10A87 /* PGLog.c in Sources */,
 				BB8FC50C15A79A3100E10A87 /* PGFile.c in Sources */,
+				BBE9619C15A8B459007EDCE9 /* PGFile.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

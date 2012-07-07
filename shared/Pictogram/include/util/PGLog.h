@@ -17,6 +17,7 @@ extern "C" {
 //#define pgLog(...) ;
 	
 void _pgLogv(PGLogLevel level, const char *fmt, ...);
+void pgSetLoggingLevel(PGLogLevel level);
 	
 #ifdef __cplusplus
 }

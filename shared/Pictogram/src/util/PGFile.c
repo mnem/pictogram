@@ -15,6 +15,19 @@
 
 PGResult pgMallocStringFromFile(char **outString, const char *file)
 {
+	if (NULL == outString) 
+	{
+		return PGR_NullPointerBarf;
+	}
+	
+	// So that the out value is always safe to free()
+	*outString = NULL;
+	
+	if (NULL == file) 
+	{
+		return PGR_NullPointerBarf;
+	}
+	
 	struct stat status = { 0 };
 	if (0 != stat(file, &status))
 	{

@@ -35,7 +35,8 @@ int pgRunAllTests(const char *testAssetsRoot)
 		return CU_get_error();
 	}
 
-	if (PGProgramCompilerTestSetup()) 
+	if (/*PGProgramCompilerTestSetup() &&*/
+		PGFileTestSetup()) 
 	{
 		/* Run all tests using the CUnit Basic interface */
 		CU_basic_set_mode(CU_BRM_VERBOSE);

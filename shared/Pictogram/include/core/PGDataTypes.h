@@ -18,6 +18,7 @@ enum
 ,	PGR_LazyGenericError
 ,	PGR_CouldNotReadFile
 ,	PGR_CouldNotCompileShader
+,	PGR_NullPointerBarf
 }
 PGResultEnum;
 

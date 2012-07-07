@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "Pictogram.h"
 
-PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, GLchar **outCompileLog)
+PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, GLchar **outLog)
 {
 	char *source = NULL;
 	if(PGR_OK != pgMallocStringFromFile(&source, file))
@@ -18,20 +18,20 @@ PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, G
 		return PGR_CouldNotReadFile;
 	}
 	
-	PGResult result = pgCompileShaderString(outShader, type, source, outCompileLog);
+	PGResult result = pgCompileShaderString(outShader, type, source, outLog);
 	
 	free(source);
 	
 	return result;
 }
 
-PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outCompileLog)
+PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outLog)
 {
     *outShader = glCreateShader(type);
     glShaderSource(*outShader, 1, &source, NULL);
     glCompileShader(*outShader);
 
-	if (NULL != outCompileLog)
+	if (NULL != outLog)
 	{
 		GLint logLength;
 		GLchar *log = NULL;
@@ -46,7 +46,7 @@ PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *sourc
 			log = (GLchar *)malloc(sizeof(GLchar));
 			log[0] = 0;
 		}
-		*outCompileLog = log;
+		*outLog = log;
 	}
     
     GLint status;

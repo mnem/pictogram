@@ -19,7 +19,7 @@ extern "C" {
  * If log is not null, the compilation log is returned. You must
  * free() the log when you are finished with it.
  */
-PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, GLchar **outCompileLog);
+PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, GLchar **outLog);
 
 /**
  * Compiles the specified source string into a shader. You should
@@ -28,7 +28,9 @@ PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, G
  * If log is not null, the compilation log is returned. You must
  * free() the log when you are finished with it.
  */
-PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outCompileLog);
+PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outLog);
+
+PGResult pgLinkProgram(GLuint vertexShader, GLuint fragmentShader, GLchar **outLog);
 
 #ifdef __cplusplus
 }
