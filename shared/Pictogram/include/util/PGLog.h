@@ -12,12 +12,22 @@
 extern "C" {
 #endif
 
+#ifdef DISABLE_pgLog
+#	define pgLog(...) ;
+#	define _pgLogv(level, fmt, ...) ;
+#	define pgSetLoggingLevel(level) ;
+#else
+#	define pgLog(level, message, ...) _pgLogv((level), ("[%s:%d] " message "\n"), __FILE__, __LINE__, ## __VA_ARGS__)
+	void _pgLogv(PGLogLevel level, const char *fmt, ...);
+	void pgSetLoggingLevel(PGLogLevel level);
+#endif
 
-#define pgLog(level, message, ...) _pgLogv((level), ("[%s:%d] " message) , __FILE__, __LINE__, ## __VA_ARGS__)
-//#define pgLog(...) ;
-	
-void _pgLogv(PGLogLevel level, const char *fmt, ...);
-void pgSetLoggingLevel(PGLogLevel level);
+#ifdef DISABLE_pgLogAnyGlErrors
+#	define pgLogAnyGlErrors(...) ;
+#else
+#	define pgLogAnyGlErrors(message, ...) _pgLogAnyGlErrorsv(("[%s:%d] --GL ERROR--" message "\n"), __FILE__, __LINE__, ## __VA_ARGS__)
+	void _pgLogAnyGlErrorsv(const char *fmt, ...);
+#endif
 	
 #ifdef __cplusplus
 }

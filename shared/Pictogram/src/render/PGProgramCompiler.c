@@ -27,9 +27,11 @@ PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, G
 
 PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outLog)
 {
+	pgLogAnyGlErrors("Preparing to create and compile shader.");
     *outShader = glCreateShader(type);
     glShaderSource(*outShader, 1, &source, NULL);
     glCompileShader(*outShader);
+	pgLogAnyGlErrors("Compile shader.");
 
 	if (NULL != outLog)
 	{
@@ -56,6 +58,7 @@ PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *sourc
         glDeleteShader(*outShader);
         return PGR_CouldNotCompileShader;
     }
+	pgLogAnyGlErrors("Check shader log.");
 
 	return PGR_OK;
 }
