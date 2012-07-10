@@ -26,6 +26,7 @@ static void test_create_fragment_shader_from_file(void)
 	CU_ASSERT_NOT_EQUAL(shader, 0);
 	CU_ASSERT_NOT_EQUAL(log, NULL);
 	
+	glDeleteShader(shader);
 	free(path);
 	free(log);
 }
@@ -41,6 +42,7 @@ static void test_create_fragment_shader_from_string(void)
 	CU_ASSERT_NOT_EQUAL(shader, 0);
 	CU_ASSERT_NOT_EQUAL(log, NULL);
 	
+	glDeleteShader(shader);
 	free(log);
 }
 
@@ -57,6 +59,7 @@ static void test_create_vertex_shader_from_file(void)
 	CU_ASSERT_NOT_EQUAL(shader, 0);
 	CU_ASSERT_NOT_EQUAL(log, NULL);
 	
+	glDeleteShader(shader);
 	free(path);
 	free(log);
 }
@@ -72,6 +75,89 @@ static void test_create_vertex_shader_from_string(void)
 	CU_ASSERT_NOT_EQUAL(shader, 0);
 	CU_ASSERT_NOT_EQUAL(log, NULL);
 	
+	glDeleteShader(shader);
+	free(log);
+}
+
+static void test_create_new_program_with_no_shaders(void)
+{
+	GLuint program = 0;
+	char *log = NULL;
+	
+	PGResult result = pgCreateAndLinkProgram(&program, 0, 0, &log);
+	
+	CU_ASSERT_EQUAL(result, PGR_CouldNotLinkProgram);
+	CU_ASSERT_EQUAL(program, 0);
+	CU_ASSERT_NOT_EQUAL(log, NULL);
+	
+	free(log);
+}
+
+static void test_create_new_program_with_one_vertex_shader(void)
+{
+	// Shader setup
+	GLuint shader = 0;
+	PGResult result = pgCompileShaderString(&shader, GL_VERTEX_SHADER, test_01_vsh, NULL);
+	CU_ASSERT_EQUAL(result, PGR_OK);
+
+	// Program
+	GLuint program = 0;
+	char *log = NULL;
+	
+	result = pgCreateAndLinkProgram(&program, shader, 0, &log);
+	
+	CU_ASSERT_EQUAL(result, PGR_CouldNotLinkProgram);
+	CU_ASSERT_EQUAL(program, 0);
+	CU_ASSERT_NOT_EQUAL(log, NULL);
+	
+	glDeleteShader(shader);
+	free(log);
+}
+
+static void test_create_new_program_with_one_fragment_shader(void)
+{
+	// Shader setup
+	GLuint shader = 0;
+	PGResult result = pgCompileShaderString(&shader, GL_FRAGMENT_SHADER, test_01_fsh, NULL);
+	CU_ASSERT_EQUAL(result, PGR_OK);
+	
+	// Program
+	GLuint program = 0;
+	char *log = NULL;
+	
+	result = pgCreateAndLinkProgram(&program, 0, shader, &log);
+	
+	CU_ASSERT_EQUAL(result, PGR_CouldNotLinkProgram);
+	CU_ASSERT_EQUAL(program, 0);
+	CU_ASSERT_NOT_EQUAL(log, NULL);
+	
+	glDeleteShader(shader);
+	free(log);
+}
+
+static void test_create_new_program_with_one_vertex_shader_and_one_fragment_shader(void)
+{
+	// Shader setup
+	GLuint vsh = 0;
+	PGResult result = pgCompileShaderString(&vsh, GL_VERTEX_SHADER, test_01_vsh, NULL);
+	CU_ASSERT_EQUAL(result, PGR_OK);
+	GLuint fsh = 0;
+	result = pgCompileShaderString(&fsh, GL_FRAGMENT_SHADER, test_01_fsh, NULL);
+	CU_ASSERT_EQUAL(result, PGR_OK);
+	
+	// Program
+	GLuint program = 0;
+	char *log = NULL;
+	
+	result = pgCreateAndLinkProgram(&program, vsh, fsh, &log);
+	
+	CU_ASSERT_EQUAL(result, PGR_OK);
+	CU_ASSERT_NOT_EQUAL(program, 0);
+	CU_ASSERT_NOT_EQUAL(log, NULL);
+	
+	glDeleteShader(vsh);
+	glDeleteShader(fsh);
+	glDeleteProgram(program);
 	free(log);
 }
 
@@ -83,7 +169,12 @@ CU_pSuite PGProgramCompilerTestSetup(void)
 	   !ADD_TEST(suite, test_create_fragment_shader_from_file) ||
 	   !ADD_TEST(suite, test_create_fragment_shader_from_string) ||
 	   !ADD_TEST(suite, test_create_vertex_shader_from_file) ||
-	   !ADD_TEST(suite, test_create_vertex_shader_from_string))
+	   !ADD_TEST(suite, test_create_vertex_shader_from_string) ||
+	   !ADD_TEST(suite, test_create_new_program_with_no_shaders) ||
+	   !ADD_TEST(suite, test_create_new_program_with_one_vertex_shader) ||
+	   !ADD_TEST(suite, test_create_new_program_with_one_fragment_shader) ||
+	   !ADD_TEST(suite, test_create_new_program_with_one_vertex_shader_and_one_fragment_shader) 
+	   )
 	{
 		return NULL;
 	}

@@ -17,8 +17,12 @@ enum
 	PGR_OK = 0 // The only one with a guaranteed value.
 ,	PGR_LazyGenericError
 ,	PGR_CouldNotReadFile
+,	PGR_CouldNotCreateShader
 ,	PGR_CouldNotCompileShader
 ,	PGR_NullPointerBarf
+,	PGR_CouldNotCreateNewProgram
+,	PGR_InvalidProgram
+,	PGR_CouldNotLinkProgram
 }
 PGResultEnum;
 

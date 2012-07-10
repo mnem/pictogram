@@ -30,7 +30,22 @@ PGResult pgCompileShaderFile(GLuint *outShader, GLenum type, const char *file, G
  */
 PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outLog);
 
-PGResult pgLinkProgram(GLuint vertexShader, GLuint fragmentShader, GLchar **outLog);
+/**
+ * Links the specified shaders into a new program. You should
+ * glDeleteProgram() the program when you are finished with it.
+ *
+ * If log is not null, the compilation log is returned. You must
+ * free() the log when you are finished with it.
+ */
+PGResult pgCreateAndLinkProgram(GLuint *outProgram, GLuint vertexShader, GLuint fragmentShader, GLchar **outLog);
+	
+/**
+ * Links or relinks the shaders into the program.
+ *
+ * If log is not null, the compilation log is returned. You must
+ * free() the log when you are finished with it.
+ */
+PGResult pgLinkProgram(GLuint program, GLuint vertexShader, GLuint fragmentShader, GLchar **outLog);
 
 #ifdef __cplusplus
 }
