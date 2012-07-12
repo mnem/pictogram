@@ -8,6 +8,6 @@
 #ifndef PGDataTypes_private_h
 #define PGDataTypes_private_h
 
-
+#define UNKNOWN (1)
 
 #endif

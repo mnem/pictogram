@@ -19,7 +19,7 @@ extern "C" {
  * You must free() the string when you are finished
  * with it.
  */
-PGResult pgMallocStringFromFile(char **outString, const char *file);
+PGResult pgCreateStringFromFile(char **outString, const char *file);
 	
 #ifdef __cplusplus
 }

@@ -11,10 +11,12 @@
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
 
-#include "core/PGDataTypes.h"
-
+#include "util/uthash.h"
 #include "util/PGLog.h"
 #include "util/PGFile.h"
+
+#include "core/PGDataTypes.h"
+
 #include "render/PGProgramCompiler.h"
 
 #endif

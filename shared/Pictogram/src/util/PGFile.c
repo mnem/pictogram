@@ -13,7 +13,7 @@
 
 #include "Pictogram.h"
 
-PGResult pgMallocStringFromFile(char **outString, const char *file)
+PGResult pgCreateStringFromFile(char **outString, const char *file)
 {
 	if (NULL == outString) 
 	{

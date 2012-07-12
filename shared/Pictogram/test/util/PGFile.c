@@ -6,17 +6,15 @@
 //
 
 #include <stdlib.h>
-#include "CUnit/Basic.h"
-#include "../TestHelpers.h"
-#include "Pictogram.h"
+#include "../PictogramTests_private.h"
 
 static void test_string_from_non_existant_file(void)
 {
 	const char testFile[] = "file_i_really_dont_exist.bleh";
-	char *path = pgMallocTestAssetPath(testFile);
+	char *path = pgTestsCreateAssetPath(testFile);
 	char *string = (char *)0xdeadbeef;
 	
-	PGResult result = pgMallocStringFromFile(&string, path);
+	PGResult result = pgCreateStringFromFile(&string, path);
 	
 	CU_ASSERT_EQUAL(result, PGR_CouldNotReadFile);
 	CU_ASSERT_PTR_NULL(string);
@@ -27,10 +25,10 @@ static void test_string_from_non_existant_file(void)
 static void test_string_from_empty_file(void)
 {
 	const char testFile[] = "file_no_contents.txt";
-	char *path = pgMallocTestAssetPath(testFile);
+	char *path = pgTestsCreateAssetPath(testFile);
 	char *string = (char *)0xdeadbeef;
 	
-	PGResult result = pgMallocStringFromFile(&string, path);
+	PGResult result = pgCreateStringFromFile(&string, path);
 	
 	CU_ASSERT_EQUAL(result, PGR_OK);
 	CU_ASSERT_PTR_NOT_NULL(string);
@@ -44,10 +42,10 @@ static void test_string_from_empty_file(void)
 static void test_string_from_one_byte_file(void)
 {
 	const char testFile[] = "file_one_byte.txt";
-	char *path = pgMallocTestAssetPath(testFile);
+	char *path = pgTestsCreateAssetPath(testFile);
 	char *string = (char *)0xdeadbeef;
 	
-	PGResult result = pgMallocStringFromFile(&string, path);
+	PGResult result = pgCreateStringFromFile(&string, path);
 	
 	CU_ASSERT_EQUAL(result, PGR_OK);
 	CU_ASSERT_PTR_NOT_NULL(string);
@@ -63,13 +61,13 @@ static void test_string_null_file_name(void)
 	char *path = NULL;
 	char *string = (char *)0xdeadbeef;
 	
-	PGResult result = pgMallocStringFromFile(&string, path);
+	PGResult result = pgCreateStringFromFile(&string, path);
 	
 	CU_ASSERT_EQUAL(result, PGR_NullPointerBarf);
 	CU_ASSERT_PTR_NULL(string);
 }
 
-CU_pSuite PGFileTestSetup(void)
+CU_pSuite pgTestSuiteCreateFile(void)
 {
 	CREATE_SUITE("File Utils", NULL, NULL);
 	

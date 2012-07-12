@@ -7,27 +7,27 @@
 //
 
 #include <stdlib.h>
-#include "CUnit/Basic.h"
+#include "PictogramTests_private.h"
 
-extern CU_pSuite PGProgramCompilerTestSetup(void);
+static char *TestAssetsRoot = NULL;
 
-const char *TestAssetsRoot = "";
-
-char *pgMallocTestAssetPath(const char *file)
+char *pgTestsCreateAssetPath(const char *file)
 {
-	const size_t rootLen = strlen(TestAssetsRoot + 1 /* '/' */);
-	const size_t nameLen = strlen(file);
-	const size_t pathLen =  rootLen + nameLen;
-	char *path = malloc(pathLen + 1);
+	const size_t pathLen =  strlen(TestAssetsRoot) + strlen(file) + 1;
+	char *path = malloc(pathLen);
+
 	strncpy(path, TestAssetsRoot, pathLen);
-	strncat(path, "/", pathLen);
 	strncat(path, file, pathLen);
+
 	return path;
 }
 
-int pgRunAllTests(const char *testAssetsRoot)
+int pgTestRunAll(const char *testAssetsRoot)
 {
-	TestAssetsRoot = testAssetsRoot;
+	size_t pathLength = strlen(testAssetsRoot) + 2; /* '/', 0x00 */
+	TestAssetsRoot = malloc(pathLength);
+	strncpy(TestAssetsRoot, testAssetsRoot, pathLength);
+	strncat(TestAssetsRoot, "/", pathLength);
 	
 	/* initialize the CUnit test registry */
 	if (CUE_SUCCESS != CU_initialize_registry())
@@ -35,8 +35,9 @@ int pgRunAllTests(const char *testAssetsRoot)
 		return CU_get_error();
 	}
 
-	if (PGProgramCompilerTestSetup() &&
-		PGFileTestSetup()) 
+	if (pgTestSuiteCreateProgramCompiler()
+		&& pgTestSuiteCreateFile()
+		) 
 	{
 		/* Run all tests using the CUnit Basic interface */
 		CU_basic_set_mode(CU_BRM_VERBOSE);
@@ -44,5 +45,9 @@ int pgRunAllTests(const char *testAssetsRoot)
 	}
 
 	CU_cleanup_registry();
+	
+	free(TestAssetsRoot);
+	TestAssetsRoot = NULL;
+	
 	return CU_get_error();
 }

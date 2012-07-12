@@ -70,7 +70,7 @@
 		BB37A00215A603470051321F /* test_cunit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_cunit.c; sourceTree = "<group>"; };
 		BB37A00315A603470051321F /* test_cunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test_cunit.h; sourceTree = "<group>"; };
 		BB6AEC9615A62F8800492AEB /* PGProgramCompiler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGProgramCompiler.c; sourceTree = "<group>"; };
-		BB6AEC9815A6340100492AEB /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelpers.h; sourceTree = "<group>"; };
+		BB6AEC9815A6340100492AEB /* PictogramTests_private.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PictogramTests_private.h; sourceTree = "<group>"; };
 		BB6AEC9D15A63F2000492AEB /* test_assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test_assets; sourceTree = "<group>"; };
 		BB8FC50715A73F0500E10A87 /* PGLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGLog.h; sourceTree = "<group>"; };
 		BB8FC50815A7436700E10A87 /* PGLog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGLog.c; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 				BB379FF215A603130051321F /* CUnit */,
 				BB379FED15A5D4AB0051321F /* PictogramTests.h */,
 				BB379FEE15A5D4BA0051321F /* PictogramTests.c */,
-				BB6AEC9815A6340100492AEB /* TestHelpers.h */,
+				BB6AEC9815A6340100492AEB /* PictogramTests_private.h */,
 			);
 			path = test;
 			sourceTree = "<group>";

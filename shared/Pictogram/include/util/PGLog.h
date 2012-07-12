@@ -12,6 +12,8 @@
 extern "C" {
 #endif
 
+#include "../core/PGDataTypes.h"
+	
 #ifdef DISABLE_pgLog
 #	define pgLog(...) ;
 #	define _pgLogv(level, fmt, ...) ;

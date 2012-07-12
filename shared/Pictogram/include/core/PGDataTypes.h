@@ -23,6 +23,7 @@ enum
 ,	PGR_CouldNotCreateNewProgram
 ,	PGR_InvalidProgram
 ,	PGR_CouldNotLinkProgram
+,   PGR_OutOfMemory
 }
 PGResultEnum;
 
@@ -38,7 +39,8 @@ PGLogLevelEnum;
 
 typedef int PGResult;
 typedef int PGLogLevel;
-typedef struct LMPContext LMPContext;
+typedef struct PGContext PGContext;
+typedef struct _PGProgram* PGProgram;
 	
 #ifdef __cplusplus
 }
