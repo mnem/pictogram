@@ -26,7 +26,15 @@ void pgProgramDestroy(PGProgram *program);
 #define pgProgramGlHandle(PGProgram) (*((GLuint*)(PGProgram)))
 GLuint pgProgramVertexShader(PGProgram program);
 GLuint pgProgramFragmentShader(PGProgram program);
+
+GLint pgProgramAttribCount(PGProgram program);
+GLenum pgProgramAttribType(PGProgram program, const char* name);
+GLsizei pgProgramAttribSize(PGProgram program, const char* name);
 GLint pgProgramAttribLocation(PGProgram program, const char* name);
+
+GLint pgProgramUniformCount(PGProgram program);
+GLenum pgProgramUniformType(PGProgram program, const char* name);
+GLsizei pgProgramUniformSize(PGProgram program, const char* name);
 GLint pgProgramUniformLocation(PGProgram program, const char* name);
 
 const GLchar* pgProgramVertexShaderCompileLog(PGProgram program);

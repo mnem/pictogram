@@ -6,8 +6,10 @@
 //
 
 varying lowp vec4 colorVarying;
+varying lowp vec2 a;
+varying lowp vec2 b;
 
 void main()
 {
-    gl_FragColor = colorVarying;
+    gl_FragColor = colorVarying + (vec4(a, b));
 }

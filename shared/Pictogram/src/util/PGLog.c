@@ -10,7 +10,7 @@
 #include <stdarg.h>
 #include "Pictogram.h"
 
-static PGLogLevel MinimumLogLevel = PGL_Fatal;
+static PGLogLevel MinimumLogLevel = PGL_Warn;
 
 void _pgLogv(PGLogLevel level, const char *fmt, ...)
 {

@@ -30,6 +30,25 @@ static void test_create_new_program(void)
 	CU_ASSERT_EQUAL(strlen(pgProgramVertexShaderCompileLog(program)), 0);
 	CU_ASSERT_EQUAL(strlen(pgProgramFragmentShaderCompileLog(program)), 0);
 	CU_ASSERT_EQUAL(strlen(pgProgramLinkLog(program)), 0);
+	
+	CU_ASSERT_EQUAL(pgProgramAttribCount(program), 2);
+	CU_ASSERT_NOT_EQUAL(pgProgramAttribLocation(program, "position"), -1);
+	CU_ASSERT_EQUAL(pgProgramAttribType(program, "position"), GL_FLOAT_VEC4);
+	CU_ASSERT_EQUAL(pgProgramAttribSize(program, "position"), 1);
+	CU_ASSERT_NOT_EQUAL(pgProgramAttribLocation(program, "normal"), -1);
+	CU_ASSERT_EQUAL(pgProgramAttribType(program, "normal"), GL_FLOAT_VEC3);
+	CU_ASSERT_EQUAL(pgProgramAttribSize(program, "normal"), 1);
+	
+	CU_ASSERT_EQUAL(pgProgramUniformCount(program), 3);
+	CU_ASSERT_NOT_EQUAL(pgProgramUniformLocation(program, "modelViewProjectionMatrix"), -1);
+	CU_ASSERT_EQUAL(pgProgramUniformType(program, "modelViewProjectionMatrix"), GL_FLOAT_MAT4);
+	CU_ASSERT_EQUAL(pgProgramUniformSize(program, "modelViewProjectionMatrix"), 1);
+	CU_ASSERT_NOT_EQUAL(pgProgramUniformLocation(program, "normalMatrix"), -1);
+	CU_ASSERT_EQUAL(pgProgramUniformType(program, "normalMatrix"), GL_FLOAT_MAT3);
+	CU_ASSERT_EQUAL(pgProgramUniformSize(program, "normalMatrix"), 1);
+	CU_ASSERT_NOT_EQUAL(pgProgramUniformLocation(program, "arrayTest[0]"), -1);
+	CU_ASSERT_EQUAL(pgProgramUniformType(program, "arrayTest[0]"), GL_FLOAT_VEC2);
+	CU_ASSERT_EQUAL(pgProgramUniformSize(program, "arrayTest[0]"), 2);
 
 	pgProgramDestroy(&program);
 	

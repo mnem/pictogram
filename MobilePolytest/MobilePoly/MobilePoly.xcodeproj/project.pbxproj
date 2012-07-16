@@ -59,7 +59,6 @@
 		BB379FE515A5D3E80051321F /* PGProgramCompiler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGProgramCompiler.c; sourceTree = "<group>"; };
 		BB379FED15A5D4AB0051321F /* PictogramTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictogramTests.h; sourceTree = "<group>"; };
 		BB379FEE15A5D4BA0051321F /* PictogramTests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PictogramTests.c; sourceTree = "<group>"; };
-		BB379FF015A5EEBD0051321F /* libcunit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcunit.a; path = "../../../../../../../../usr/local/Cellar/cunit/2.1-2/lib/libcunit.a"; sourceTree = "<group>"; };
 		BB379FF615A603470051321F /* Basic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Basic.c; sourceTree = "<group>"; };
 		BB379FF815A603470051321F /* Console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Console.c; sourceTree = "<group>"; };
 		BB379FFC15A603470051321F /* CUError.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CUError.c; sourceTree = "<group>"; };
@@ -70,7 +69,7 @@
 		BB37A00215A603470051321F /* test_cunit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_cunit.c; sourceTree = "<group>"; };
 		BB37A00315A603470051321F /* test_cunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test_cunit.h; sourceTree = "<group>"; };
 		BB6AEC9615A62F8800492AEB /* PGProgramCompiler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGProgramCompiler.c; sourceTree = "<group>"; };
-		BB6AEC9815A6340100492AEB /* PictogramTests_private.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PictogramTests_private.h; sourceTree = "<group>"; };
+		BB6AEC9815A6340100492AEB /* PictogramTests_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictogramTests_private.h; sourceTree = "<group>"; };
 		BB6AEC9D15A63F2000492AEB /* test_assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test_assets; sourceTree = "<group>"; };
 		BB8FC50715A73F0500E10A87 /* PGLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGLog.h; sourceTree = "<group>"; };
 		BB8FC50815A7436700E10A87 /* PGLog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGLog.c; sourceTree = "<group>"; };
@@ -132,9 +131,9 @@
 		BB379FDA15A5D3E80051321F /* include */ = {
 			isa = PBXGroup;
 			children = (
-				BB8FC50615A73EEC00E10A87 /* util */,
 				BB379FDB15A5D3E80051321F /* core */,
 				BB379FDF15A5D3E80051321F /* render */,
+				BB8FC50615A73EEC00E10A87 /* util */,
 				BB379FDE15A5D3E80051321F /* Pictogram.h */,
 			);
 			path = include;
@@ -167,9 +166,9 @@
 		BB379FE215A5D3E80051321F /* src */ = {
 			isa = PBXGroup;
 			children = (
-				BB8FC50215A73ECF00E10A87 /* util */,
 				BB379FE315A5D3E80051321F /* core */,
 				BB379FE415A5D3E80051321F /* render */,
+				BB8FC50215A73ECF00E10A87 /* util */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -292,7 +291,6 @@
 		BBD5278415A0E56E005995F7 = {
 			isa = PBXGroup;
 			children = (
-				BB379FF015A5EEBD0051321F /* libcunit.a */,
 				BBD527D315A0EA3B005995F7 /* Pictogram */,
 				BBD5279D15A0E56F005995F7 /* MobilePoly */,
 				BBD527C215A0E56F005995F7 /* MobilePolyTests */,
@@ -633,7 +631,7 @@
 					"\"/usr/local/Cellar/cunit/2.1-2/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "/Users/mnem/Developer/github/mnem/Polytest/shared/Pictogram/cunit/include/**";
+				USER_HEADER_SEARCH_PATHS = "/Users/mnem/Developer/github/mnem/pictogram/shared/Pictogram/cunit/include/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -650,7 +648,7 @@
 					"\"/usr/local/Cellar/cunit/2.1-2/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "/Users/mnem/Developer/github/mnem/Polytest/shared/Pictogram/cunit/include/**";
+				USER_HEADER_SEARCH_PATHS = "/Users/mnem/Developer/github/mnem/pictogram/shared/Pictogram/cunit/include/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

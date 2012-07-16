@@ -13,6 +13,8 @@
 typedef struct {
 	UT_hash_handle hh;  /* makes this structure hashable     */
 	GLint location;     /* variable's location               */
+	GLint size;
+	GLenum type;
 	char name[UNKNOWN]; /* variable's name. Key for the hash. Actual size made by magic */
 } PGProgramVariable;
 #undef UNKNOWN
@@ -29,6 +31,12 @@ typedef struct _PGProgram {
 	PGProgramVariable *attributesHash;
 	PGProgramVariable *uniformsHash;
 } _PGProgram;
+
+/**
+ * Used to pass the relevant Attrib or Uniform query function for extracting variables
+ * from programs
+ */
+typedef void (*GetVariableFn)(GLuint, GLuint, GLsizei, GLsizei *, GLint *, GLenum *, GLchar *);
 
 static PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outLog)
 {
@@ -156,6 +164,98 @@ static GLint pgProgramVariableLocation(PGProgramVariable *hash, const char* name
 	}
 }
 
+static GLenum pgProgramVariableType(PGProgramVariable *hash, const char* name)
+{
+	// TODO: Check if it's actually valid to return GL_INVALID_ENUM, that
+	// is it won't clash with an enum. I'm not sure what context it's
+	// used in (i.e. is it an error code or an enum?)
+	if (NULL == hash || NULL == name) return GL_INVALID_ENUM;
+	PGProgramVariable *var = NULL;
+	
+	HASH_FIND_STR(hash, name, var);
+	
+	if (NULL == var )
+	{
+		return GL_INVALID_ENUM;
+	}
+	else 
+	{
+		return var->type;
+	}
+}
+
+static GLsizei pgProgramVariableSize(PGProgramVariable *hash, const char* name)
+{
+	if (NULL == hash || NULL == name) return 0;
+	PGProgramVariable *var = NULL;
+	
+	HASH_FIND_STR(hash, name, var);
+	
+	if (NULL == var )
+	{
+		return 0;
+	}
+	else 
+	{
+		return var->size;
+	}
+}
+
+static void destroyProgramVariablesHash(PGProgramVariable **hash_)
+{
+	if (NULL != hash_) 
+	{
+		PGProgramVariable *current, *temp, *hash = *hash_;
+		HASH_ITER(hh, hash, current, temp) 
+		{
+			HASH_DEL(hash, current);
+			free(current);
+		}
+		*hash_ = hash;
+	}
+}
+
+static void extractVariables(GLuint program, PGProgramVariable **hash_, GetVariableFn get, GLint numVariables, GLint maxVariableLength)
+{
+	destroyProgramVariablesHash(hash_);
+	
+	if (NULL != hash_ && numVariables > 0 && maxVariableLength > 0)
+	{		
+		PGProgramVariable *hash = *hash_;
+		assert(HASH_COUNT(hash) == 0);
+		GLchar name[maxVariableLength];
+		for (GLuint attrIndex = 0; attrIndex < numVariables; attrIndex++)
+		{
+			GLsizei nameLength = 0;
+			GLint size = 0;
+			GLenum type = 0;
+			
+			get(program, attrIndex, maxVariableLength, &nameLength, &size, &type, name);
+			if (nameLength > 0)
+			{
+				size_t recordSize = offsetof(PGProgramVariable, name) + nameLength + 1; /* nul */
+				PGProgramVariable *var = malloc(recordSize);
+				memset(var, 0, recordSize);
+				var->location = attrIndex;
+				var->size = size;
+				if (var->size > 1)
+				{
+					pgLog(PGL_Warn, "%s is an array or struct. Pictogram doesn't handle those well yet - you will have to use traditional GL functions to manipulate it.", name);
+				}
+				var->type = type;
+				strncpy(var->name, name, nameLength + 1);
+				HASH_ADD_STR(hash, name, var);
+			}
+			else 
+			{
+				pgLogAnyGlErrors("Failed to get active program variable");
+			}
+			
+		}
+		*hash_ = hash;
+	}
+}
+
 PGResult pgProgramCreateAndBuild(PGProgram *program, const char *vertexSource, const char *fragmentSource)
 {
 	// Sanitise the params /////////////////////////////////////////////////
@@ -192,10 +292,25 @@ PGResult pgProgramCreateAndBuild(PGProgram *program, const char *vertexSource, c
 		return PGR_CouldNotCreateNewProgram;
 	}
 	
-	return pgLinkProgram(p->program,
-						 p->vertexShader,
-						 p->fragmentShader,
-						 &p->programLinkLog);	
+	result = pgLinkProgram(p->program,
+						   p->vertexShader,
+						   p->fragmentShader,
+						   &p->programLinkLog);	
+	if (PGR_OK != result) return result;
+	
+	// Fetch the attributes ////////////////////////////////////////////////
+	GLint numVars;
+	GLint varNameMax;
+	
+	glGetProgramiv(p->program, GL_ACTIVE_ATTRIBUTES, &numVars);
+	glGetProgramiv(p->program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &varNameMax);
+	extractVariables(p->program, &p->attributesHash, glGetActiveAttrib, numVars, varNameMax); 
+	
+	glGetProgramiv(p->program, GL_ACTIVE_UNIFORMS, &numVars);
+	glGetProgramiv(p->program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &varNameMax);
+	extractVariables(p->program, &p->uniformsHash, glGetActiveUniform, numVars, varNameMax); 
+	
+	return PGR_OK;
 }
 
 void pgProgramDestroy(PGProgram *program)
@@ -220,24 +335,11 @@ void pgProgramDestroy(PGProgram *program)
 		free(p->fragmentShaderCompileLog);
 
 		// Free the program variables hash /////////////////////////////////
-		PGProgramVariable *currentAttrib, *tmpAttrib;
-		HASH_ITER(hh, p->attributesHash, currentAttrib, tmpAttrib) 
-		{
-			HASH_DEL(p->attributesHash, currentAttrib);
-			free(currentAttrib);
-		}
+		destroyProgramVariablesHash(&p->attributesHash);
 		assert(p->attributesHash == NULL);
 
-		PGProgramVariable *currentUniform, *tmpUniform;
-		HASH_ITER(hh, p->uniformsHash, currentUniform, tmpUniform) 
-		{
-			HASH_DEL(p->uniformsHash, currentUniform);
-			free(currentUniform);
-		}
+		destroyProgramVariablesHash(&p->uniformsHash);
 		assert(p->uniformsHash == NULL);
-
-		// Get all the program variables ///////////////////////////////////
-		// TODO
 
 		// Free the PGProgram //////////////////////////////////////////////
 		free(p);
@@ -281,6 +383,13 @@ const GLchar* pgProgramLinkLog(PGProgram program)
 	return program->programLinkLog;
 }
 
+GLint pgProgramAttribCount(PGProgram program)
+{
+	if (NULL == program) return -1;
+	
+	return HASH_COUNT(program->attributesHash);
+}
+
 GLint pgProgramAttribLocation(PGProgram program, const char* name)
 {
 	if (NULL == program) return -1;
@@ -288,9 +397,44 @@ GLint pgProgramAttribLocation(PGProgram program, const char* name)
 	return pgProgramVariableLocation(program->attributesHash, name);
 }
 
+GLenum pgProgramAttribType(PGProgram program, const char* name)
+{
+	if (NULL == program) return GL_INVALID_ENUM;
+	
+	return pgProgramVariableType(program->attributesHash, name);
+}
+
+GLsizei pgProgramAttribSize(PGProgram program, const char* name)
+{
+	if (NULL == program) return 0;
+	
+	return pgProgramVariableSize(program->attributesHash, name);
+}
+
+GLint pgProgramUniformCount(PGProgram program)
+{
+	if (NULL == program) return -1;
+	
+	return HASH_COUNT(program->uniformsHash);
+}
+
 GLint pgProgramUniformLocation(PGProgram program, const char* name)
 {
 	if (NULL == program) return -1;
 	
 	return pgProgramVariableLocation(program->uniformsHash, name);
+}
+
+GLenum pgProgramUniformType(PGProgram program, const char* name)
+{
+	if (NULL == program) return GL_INVALID_ENUM;
+	
+	return pgProgramVariableType(program->uniformsHash, name);
+}
+
+GLsizei pgProgramUniformSize(PGProgram program, const char* name)
+{
+	if (NULL == program) return 0;
+	
+	return pgProgramVariableSize(program->uniformsHash, name);
 }
