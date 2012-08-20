@@ -10,7 +10,12 @@
 
 #import "LMViewController.h"
 
+//#define RUN_PG_TESTS
+#ifdef RUN_PG_TESTS
 #import "PictogramTests.h"
+#endif
+
+#import "Pictogram.h"
 
 @implementation LMAppDelegate
 
@@ -19,6 +24,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	pgLogSetLevel(PGL_Debug);
+	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -29,7 +36,6 @@
 	self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 	
-#define RUN_PG_TESTS
 #ifdef RUN_PG_TESTS
 	NSString *testRoot = [[NSBundle mainBundle] pathForResource:@"test_01" ofType:@"fsh" inDirectory:@"test_assets"];
 	pgTestRunAll([[testRoot stringByDeletingLastPathComponent] cStringUsingEncoding:NSUTF8StringEncoding]);

@@ -17,6 +17,9 @@
 
 #include "core/PGDataTypes.h"
 
-#include "render/PGProgramCompiler.h"
+#include "render/PGProgram.h"
+#include "render/PGRenderer.h"
+
+#include "core/PGContext.h"
 
 #endif

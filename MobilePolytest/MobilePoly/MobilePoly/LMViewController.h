@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <GLKit/GLKit.h>
 
-@interface LMViewController : GLKViewController
+@class PGView;
+
+@interface LMViewController : UIViewController
 
 @end

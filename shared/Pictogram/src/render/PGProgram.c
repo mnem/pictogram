@@ -266,9 +266,9 @@ PGResult pgProgramCreateAndBuild(PGProgram *program, const char *vertexSource, c
 	
 	// Create the structure to hold the details ////////////////////////////
 	PGProgram p = malloc(sizeof(_PGProgram));
-	memset(p, 0, sizeof(_PGProgram));
 	if (NULL == p) return PGR_OutOfMemory;
 	*program = p;
+	memset(p, 0, sizeof(_PGProgram));
 	
 	// Load the shaders ////////////////////////////////////////////////////
 	PGResult result;
@@ -342,6 +342,7 @@ void pgProgramDestroy(PGProgram *program)
 		assert(p->uniformsHash == NULL);
 
 		// Free the PGProgram //////////////////////////////////////////////
+		memset(p, 0, sizeof(_PGProgram));
 		free(p);
 		
 		*program = NULL;

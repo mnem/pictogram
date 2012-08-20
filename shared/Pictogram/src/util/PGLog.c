@@ -23,7 +23,7 @@ void _pgLogv(PGLogLevel level, const char *fmt, ...)
 	}
 }
 
-void pgSetLoggingLevel(PGLogLevel level)
+void pgLogSetLevel(PGLogLevel level)
 {
 	MinimumLogLevel = level;
 }

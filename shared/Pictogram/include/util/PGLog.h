@@ -17,11 +17,11 @@ extern "C" {
 #ifdef DISABLE_pgLog
 #	define pgLog(...) ;
 #	define _pgLogv(level, fmt, ...) ;
-#	define pgSetLoggingLevel(level) ;
+#	define pgLogSetLevel(level) ;
 #else
 #	define pgLog(level, message, ...) _pgLogv((level), ("[%s:%d] " message "\n"), __FILE__, __LINE__, ## __VA_ARGS__)
 	void _pgLogv(PGLogLevel level, const char *fmt, ...);
-	void pgSetLoggingLevel(PGLogLevel level);
+	void pgLogSetLevel(PGLogLevel level);
 #endif
 
 #ifdef DISABLE_pgLogAnyGlErrors

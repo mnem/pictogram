@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BB379FEB15A5D3E80051321F /* PGProgramCompiler.c in Sources */ = {isa = PBXBuildFile; fileRef = BB379FE515A5D3E80051321F /* PGProgramCompiler.c */; };
+		BB234B2715B85AD900718E20 /* mvp_col.vsh in Sources */ = {isa = PBXBuildFile; fileRef = BB234B2615B85AD900718E20 /* mvp_col.vsh */; };
+		BB379FEB15A5D3E80051321F /* PGProgram.c in Sources */ = {isa = PBXBuildFile; fileRef = BB379FE515A5D3E80051321F /* PGProgram.c */; };
 		BB379FEF15A5D4BA0051321F /* PictogramTests.c in Sources */ = {isa = PBXBuildFile; fileRef = BB379FEE15A5D4BA0051321F /* PictogramTests.c */; };
 		BB37A01315A603470051321F /* Basic.c in Sources */ = {isa = PBXBuildFile; fileRef = BB379FF615A603470051321F /* Basic.c */; };
 		BB37A01415A603470051321F /* Console.c in Sources */ = {isa = PBXBuildFile; fileRef = BB379FF815A603470051321F /* Console.c */; };
@@ -16,20 +17,24 @@
 		BB37A01815A603470051321F /* TestDB.c in Sources */ = {isa = PBXBuildFile; fileRef = BB379FFE15A603470051321F /* TestDB.c */; };
 		BB37A01915A603470051321F /* TestRun.c in Sources */ = {isa = PBXBuildFile; fileRef = BB379FFF15A603470051321F /* TestRun.c */; };
 		BB37A01A15A603470051321F /* Util.c in Sources */ = {isa = PBXBuildFile; fileRef = BB37A00015A603470051321F /* Util.c */; };
+		BB5779D515B85B1D00F7C290 /* mvp_col.fsh in Sources */ = {isa = PBXBuildFile; fileRef = BB5779D415B85B1D00F7C290 /* mvp_col.fsh */; };
 		BB6AEC9915A635CD00492AEB /* PGProgramCompiler.c in Sources */ = {isa = PBXBuildFile; fileRef = BB6AEC9615A62F8800492AEB /* PGProgramCompiler.c */; };
 		BB6AEC9E15A63F2000492AEB /* test_assets in Resources */ = {isa = PBXBuildFile; fileRef = BB6AEC9D15A63F2000492AEB /* test_assets */; };
 		BB8FC50915A7436700E10A87 /* PGLog.c in Sources */ = {isa = PBXBuildFile; fileRef = BB8FC50815A7436700E10A87 /* PGLog.c */; };
 		BB8FC50C15A79A3100E10A87 /* PGFile.c in Sources */ = {isa = PBXBuildFile; fileRef = BB8FC50B15A79A3100E10A87 /* PGFile.c */; };
+		BB9DCEA515BDA4950071FEEE /* PGView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9DCEA415BDA4950071FEEE /* PGView.m */; };
+		BB9DCEA815BDAEBF0071FEEE /* PGContext.c in Sources */ = {isa = PBXBuildFile; fileRef = BB9DCEA715BDAEBF0071FEEE /* PGContext.c */; };
+		BB9DCEAD15BDB9780071FEEE /* PGRenderer.c in Sources */ = {isa = PBXBuildFile; fileRef = BB9DCEAC15BDB9780071FEEE /* PGRenderer.c */; };
+		BBBC929A15B8693500B658F4 /* mvp_col.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB234B2615B85AD900718E20 /* mvp_col.vsh */; };
+		BBBC929B15B8693500B658F4 /* mvp_col.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5779D415B85B1D00F7C290 /* mvp_col.fsh */; };
+		BBD22EDF15BF5D5C00C4DF80 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD22EDE15BF5D5C00C4DF80 /* QuartzCore.framework */; };
 		BBD5279415A0E56F005995F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD5279315A0E56F005995F7 /* UIKit.framework */; };
 		BBD5279615A0E56F005995F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD5279515A0E56F005995F7 /* Foundation.framework */; };
 		BBD5279815A0E56F005995F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD5279715A0E56F005995F7 /* CoreGraphics.framework */; };
-		BBD5279A15A0E56F005995F7 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD5279915A0E56F005995F7 /* GLKit.framework */; };
 		BBD5279C15A0E56F005995F7 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD5279B15A0E56F005995F7 /* OpenGLES.framework */; };
 		BBD527A215A0E56F005995F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBD527A015A0E56F005995F7 /* InfoPlist.strings */; };
 		BBD527A415A0E56F005995F7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD527A315A0E56F005995F7 /* main.m */; };
 		BBD527A815A0E56F005995F7 /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD527A715A0E56F005995F7 /* LMAppDelegate.m */; };
-		BBD527AA15A0E56F005995F7 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBD527A915A0E56F005995F7 /* Shader.fsh */; };
-		BBD527AC15A0E56F005995F7 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBD527AB15A0E56F005995F7 /* Shader.vsh */; };
 		BBD527AF15A0E56F005995F7 /* LMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD527AE15A0E56F005995F7 /* LMViewController.m */; };
 		BBD527B215A0E56F005995F7 /* LMViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD527B015A0E56F005995F7 /* LMViewController_iPhone.xib */; };
 		BBD527B515A0E56F005995F7 /* LMViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD527B315A0E56F005995F7 /* LMViewController_iPad.xib */; };
@@ -52,11 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB234B2615B85AD900718E20 /* mvp_col.vsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = mvp_col.vsh; sourceTree = "<group>"; };
 		BB379FDC15A5D3E80051321F /* PGDataTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDataTypes.h; sourceTree = "<group>"; };
 		BB379FDD15A5D3E80051321F /* PGDataTypes_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDataTypes_private.h; sourceTree = "<group>"; };
 		BB379FDE15A5D3E80051321F /* Pictogram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pictogram.h; sourceTree = "<group>"; };
-		BB379FE015A5D3E80051321F /* PGProgramCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGProgramCompiler.h; sourceTree = "<group>"; };
-		BB379FE515A5D3E80051321F /* PGProgramCompiler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGProgramCompiler.c; sourceTree = "<group>"; };
+		BB379FE015A5D3E80051321F /* PGProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGProgram.h; sourceTree = "<group>"; };
+		BB379FE515A5D3E80051321F /* PGProgram.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGProgram.c; sourceTree = "<group>"; };
 		BB379FED15A5D4AB0051321F /* PictogramTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictogramTests.h; sourceTree = "<group>"; };
 		BB379FEE15A5D4BA0051321F /* PictogramTests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PictogramTests.c; sourceTree = "<group>"; };
 		BB379FF615A603470051321F /* Basic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Basic.c; sourceTree = "<group>"; };
@@ -68,6 +74,7 @@
 		BB37A00015A603470051321F /* Util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Util.c; sourceTree = "<group>"; };
 		BB37A00215A603470051321F /* test_cunit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_cunit.c; sourceTree = "<group>"; };
 		BB37A00315A603470051321F /* test_cunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test_cunit.h; sourceTree = "<group>"; };
+		BB5779D415B85B1D00F7C290 /* mvp_col.fsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = mvp_col.fsh; sourceTree = "<group>"; };
 		BB6AEC9615A62F8800492AEB /* PGProgramCompiler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGProgramCompiler.c; sourceTree = "<group>"; };
 		BB6AEC9815A6340100492AEB /* PictogramTests_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictogramTests_private.h; sourceTree = "<group>"; };
 		BB6AEC9D15A63F2000492AEB /* test_assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test_assets; sourceTree = "<group>"; };
@@ -75,11 +82,17 @@
 		BB8FC50815A7436700E10A87 /* PGLog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGLog.c; sourceTree = "<group>"; };
 		BB8FC50A15A799FC00E10A87 /* PGFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGFile.h; sourceTree = "<group>"; };
 		BB8FC50B15A79A3100E10A87 /* PGFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGFile.c; sourceTree = "<group>"; };
+		BB9DCEA315BDA4950071FEEE /* PGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PGView.h; path = platform/ios/PGView.h; sourceTree = "<group>"; };
+		BB9DCEA415BDA4950071FEEE /* PGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGView.m; path = platform/ios/PGView.m; sourceTree = "<group>"; };
+		BB9DCEA615BDADA60071FEEE /* PGContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGContext.h; sourceTree = "<group>"; };
+		BB9DCEA715BDAEBF0071FEEE /* PGContext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGContext.c; sourceTree = "<group>"; };
+		BB9DCEAB15BDB6800071FEEE /* PGRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRenderer.h; sourceTree = "<group>"; };
+		BB9DCEAC15BDB9780071FEEE /* PGRenderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PGRenderer.c; sourceTree = "<group>"; };
+		BBD22EDE15BF5D5C00C4DF80 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BBD5278F15A0E56F005995F7 /* MobilePoly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobilePoly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBD5279315A0E56F005995F7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BBD5279515A0E56F005995F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BBD5279715A0E56F005995F7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		BBD5279915A0E56F005995F7 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		BBD5279B15A0E56F005995F7 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BBD5279F15A0E56F005995F7 /* MobilePoly-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobilePoly-Info.plist"; sourceTree = "<group>"; };
 		BBD527A115A0E56F005995F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -107,10 +120,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBD22EDF15BF5D5C00C4DF80 /* QuartzCore.framework in Frameworks */,
 				BBD5279415A0E56F005995F7 /* UIKit.framework in Frameworks */,
 				BBD5279615A0E56F005995F7 /* Foundation.framework in Frameworks */,
 				BBD5279815A0E56F005995F7 /* CoreGraphics.framework in Frameworks */,
-				BBD5279A15A0E56F005995F7 /* GLKit.framework in Frameworks */,
 				BBD5279C15A0E56F005995F7 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +157,7 @@
 			children = (
 				BB379FDC15A5D3E80051321F /* PGDataTypes.h */,
 				BB379FDD15A5D3E80051321F /* PGDataTypes_private.h */,
+				BB9DCEA615BDADA60071FEEE /* PGContext.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -151,7 +165,8 @@
 		BB379FDF15A5D3E80051321F /* render */ = {
 			isa = PBXGroup;
 			children = (
-				BB379FE015A5D3E80051321F /* PGProgramCompiler.h */,
+				BB379FE015A5D3E80051321F /* PGProgram.h */,
+				BB9DCEAB15BDB6800071FEEE /* PGRenderer.h */,
 			);
 			path = render;
 			sourceTree = "<group>";
@@ -159,6 +174,8 @@
 		BB379FE115A5D3E80051321F /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				BB234B2615B85AD900718E20 /* mvp_col.vsh */,
+				BB5779D415B85B1D00F7C290 /* mvp_col.fsh */,
 			);
 			path = shaders;
 			sourceTree = "<group>";
@@ -166,6 +183,7 @@
 		BB379FE215A5D3E80051321F /* src */ = {
 			isa = PBXGroup;
 			children = (
+				BBD22EDB15BF4DE600C4DF80 /* platform */,
 				BB379FE315A5D3E80051321F /* core */,
 				BB379FE415A5D3E80051321F /* render */,
 				BB8FC50215A73ECF00E10A87 /* util */,
@@ -176,6 +194,7 @@
 		BB379FE315A5D3E80051321F /* core */ = {
 			isa = PBXGroup;
 			children = (
+				BB9DCEA715BDAEBF0071FEEE /* PGContext.c */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -183,7 +202,8 @@
 		BB379FE415A5D3E80051321F /* render */ = {
 			isa = PBXGroup;
 			children = (
-				BB379FE515A5D3E80051321F /* PGProgramCompiler.c */,
+				BB379FE515A5D3E80051321F /* PGProgram.c */,
+				BB9DCEAC15BDB9780071FEEE /* PGRenderer.c */,
 			);
 			path = render;
 			sourceTree = "<group>";
@@ -288,6 +308,23 @@
 			path = util;
 			sourceTree = "<group>";
 		};
+		BBD22EDB15BF4DE600C4DF80 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				BBD22EDD15BF4DFA00C4DF80 /* ios */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		BBD22EDD15BF4DFA00C4DF80 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				BB9DCEA315BDA4950071FEEE /* PGView.h */,
+				BB9DCEA415BDA4950071FEEE /* PGView.m */,
+			);
+			name = ios;
+			sourceTree = "<group>";
+		};
 		BBD5278415A0E56E005995F7 = {
 			isa = PBXGroup;
 			children = (
@@ -311,12 +348,12 @@
 		BBD5279215A0E56F005995F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BBD5279315A0E56F005995F7 /* UIKit.framework */,
-				BBD5279515A0E56F005995F7 /* Foundation.framework */,
 				BBD5279715A0E56F005995F7 /* CoreGraphics.framework */,
-				BBD5279915A0E56F005995F7 /* GLKit.framework */,
+				BBD5279515A0E56F005995F7 /* Foundation.framework */,
 				BBD5279B15A0E56F005995F7 /* OpenGLES.framework */,
+				BBD22EDE15BF5D5C00C4DF80 /* QuartzCore.framework */,
 				BBD527BC15A0E56F005995F7 /* SenTestingKit.framework */,
+				BBD5279315A0E56F005995F7 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -459,9 +496,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBBC929A15B8693500B658F4 /* mvp_col.vsh in Resources */,
+				BBBC929B15B8693500B658F4 /* mvp_col.fsh in Resources */,
 				BBD527A215A0E56F005995F7 /* InfoPlist.strings in Resources */,
-				BBD527AA15A0E56F005995F7 /* Shader.fsh in Resources */,
-				BBD527AC15A0E56F005995F7 /* Shader.vsh in Resources */,
 				BBD527B215A0E56F005995F7 /* LMViewController_iPhone.xib in Resources */,
 				BBD527B515A0E56F005995F7 /* LMViewController_iPad.xib in Resources */,
 				BB6AEC9E15A63F2000492AEB /* test_assets in Resources */,
@@ -502,7 +539,7 @@
 				BBD527A415A0E56F005995F7 /* main.m in Sources */,
 				BBD527A815A0E56F005995F7 /* LMAppDelegate.m in Sources */,
 				BBD527AF15A0E56F005995F7 /* LMViewController.m in Sources */,
-				BB379FEB15A5D3E80051321F /* PGProgramCompiler.c in Sources */,
+				BB379FEB15A5D3E80051321F /* PGProgram.c in Sources */,
 				BB379FEF15A5D4BA0051321F /* PictogramTests.c in Sources */,
 				BB37A01315A603470051321F /* Basic.c in Sources */,
 				BB37A01415A603470051321F /* Console.c in Sources */,
@@ -515,6 +552,11 @@
 				BB8FC50915A7436700E10A87 /* PGLog.c in Sources */,
 				BB8FC50C15A79A3100E10A87 /* PGFile.c in Sources */,
 				BBE9619C15A8B459007EDCE9 /* PGFile.c in Sources */,
+				BB234B2715B85AD900718E20 /* mvp_col.vsh in Sources */,
+				BB5779D515B85B1D00F7C290 /* mvp_col.fsh in Sources */,
+				BB9DCEA515BDA4950071FEEE /* PGView.m in Sources */,
+				BB9DCEA815BDAEBF0071FEEE /* PGContext.c in Sources */,
+				BB9DCEAD15BDB9780071FEEE /* PGRenderer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

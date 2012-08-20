@@ -12,35 +12,34 @@
 extern "C" {
 #endif
 
-enum
-{
-	PGR_OK = 0 // The only one with a guaranteed value.
-,	PGR_LazyGenericError
-,	PGR_CouldNotReadFile
-,	PGR_CouldNotCreateShader
-,	PGR_CouldNotCompileShader
-,	PGR_NullPointerBarf
-,	PGR_CouldNotCreateNewProgram
-,	PGR_InvalidProgram
-,	PGR_CouldNotLinkProgram
-,   PGR_OutOfMemory
-}
-PGResultEnum;
+	typedef enum
+	{
+		PGR_OK = 0 // The only one with a guaranteed value.
+	,	PGR_LazyGenericError
+	,	PGR_CouldNotReadFile
+	,	PGR_CouldNotCreateShader
+	,	PGR_CouldNotCompileShader
+	,	PGR_NullPointerBarf
+	,	PGR_CouldNotCreateNewProgram
+	,	PGR_InvalidProgram
+	,	PGR_CouldNotLinkProgram
+	,   PGR_OutOfMemory
+	}
+	PGResult;
 
-enum
-{
-	PGL_Debug,
-	PGL_Info,
-	PGL_Warn,
-	PGL_Error,
-	PGL_Fatal
-}
-PGLogLevelEnum;
+	typedef enum
+	{
+		PGL_Debug,
+		PGL_Info,
+		PGL_Warn,
+		PGL_Error,
+		PGL_Fatal
+	}
+	PGLogLevel;
 
-typedef int PGResult;
-typedef int PGLogLevel;
-typedef struct PGContext PGContext;
-typedef struct _PGProgram* PGProgram;
+	typedef struct _PGContext* PGContext;
+	typedef struct _PGProgram* PGProgram;
+	typedef struct _PGRenderer* PGRenderer;
 	
 #ifdef __cplusplus
 }
