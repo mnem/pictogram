@@ -27,7 +27,7 @@ extern "C" {
 #ifdef DISABLE_pgLogAnyGlErrors
 #	define pgLogAnyGlErrors(...) ;
 #else
-#	define pgLogAnyGlErrors(message, ...) _pgLogAnyGlErrorsv(("[%s:%d] --GL ERROR--" message "\n"), __FILE__, __LINE__, ## __VA_ARGS__)
+#	define pgLogAnyGlErrors(message, ...) _pgLogAnyGlErrorsv(("[%s:%d] --GL ERROR-- " message), __FILE__, __LINE__, ## __VA_ARGS__)
 	void _pgLogAnyGlErrorsv(const char *fmt, ...);
 #endif
 	

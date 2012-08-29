@@ -10,7 +10,7 @@
 #import "Pictogram.h"
 #import "PGView.h"
 
-void ApplyOrtho(PGProgram program, float maxX, float maxY)
+static void ApplyOrtho(PGProgram program, float maxX, float maxY)
 {
     float a = 1.0f / maxX;
     float b = 1.0f / maxY;
@@ -25,7 +25,23 @@ void ApplyOrtho(PGProgram program, float maxX, float maxY)
     glUniformMatrix4fv(projectionUniform, 1, 0, &ortho[0]);
 }
 
-@interface LMViewController () <PGViewDelegate> 
+static void ApplyRotation(PGProgram program, float degrees)
+{
+    float radians = degrees * 3.14159f / 180.0f;
+    float s = sin(radians);
+    float c = cos(radians);
+    float zRotation[16] = {
+        c, s, 0, 0,
+		-s, c, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    };
+    
+    GLint modelviewUniform = pgProgramUniformLocation(program, "modelViewMatrix");
+    glUniformMatrix4fv(modelviewUniform, 1, 0, &zRotation[0]);
+}
+
+@interface LMViewController () <PGViewDelegate>
 {
     GLuint _vertexArray;
     GLuint _vertexBuffer;
@@ -79,6 +95,9 @@ void ApplyOrtho(PGProgram program, float maxX, float maxY)
 	[pgv makeContextCurrent];
 	
     [self loadShaders];
+	
+	pgRendererUseProgram(pgv.renderer, _pgprogram);
+	
 	ApplyOrtho(_pgprogram, 2, 3);
 }
 
@@ -103,12 +122,14 @@ const static Vertex Vertices[] = {
     {{0, -0.4f},     {0.5f, 0.5f, 0.5f}},
 };
 
+
+
 - (void)renderPGView:(PGView *)pgView
 {
 	glClearColor(0.5f, 0.5f, 0.5f, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-//	ApplyRotation(m_currentAngle);
+	ApplyRotation(_pgprogram, 0);
 	
 	GLuint positionSlot = pgProgramAttribLocation(_pgprogram, "position"); 
 	GLuint colorSlot = pgProgramAttribLocation(_pgprogram, "color");
@@ -138,10 +159,19 @@ const static Vertex Vertices[] = {
     NSString *fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"mvp_col" ofType:@"fsh"];
 	const char *vertShader = [vertShaderPathname cStringUsingEncoding:NSUTF8StringEncoding];
 	const char *fragShader = [fragShaderPathname cStringUsingEncoding:NSUTF8StringEncoding];
+	pgLogAnyGlErrors("In loadShaders");
 	PGResult result = pgProgramCreateAndBuild(&_pgprogram, vertShader, fragShader);
 	if (PGR_OK != result)
 	{
 		pgLog(PGL_Error, "Failed to build program (%d), logs:\n-- Vertex --\n%s\n-- Fragment --\n%s\n-- Link --\n%s",
+			  result,
+			  pgProgramVertexShaderCompileLog(_pgprogram),
+			  pgProgramFragmentShaderCompileLog(_pgprogram),
+			  pgProgramLinkLog(_pgprogram));
+	}
+	else
+	{
+		pgLog(PGL_Info, "Built program successfully (%d), logs:\n-- Vertex --\n%s\n-- Fragment --\n%s\n-- Link --\n%s",
 			  result,
 			  pgProgramVertexShaderCompileLog(_pgprogram),
 			  pgProgramFragmentShaderCompileLog(_pgprogram),

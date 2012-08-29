@@ -37,9 +37,9 @@ extern "C" {
 	}
 	PGLogLevel;
 
-	typedef struct _PGContext* PGContext;
-	typedef struct _PGProgram* PGProgram;
-	typedef struct _PGRenderer* PGRenderer;
+	typedef struct PGContextPrivate* PGContext;
+	typedef struct PGProgramPrivate* PGProgram;
+	typedef struct PGRendererPrivate* PGRenderer;
 	
 #ifdef __cplusplus
 }

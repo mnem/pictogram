@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PGDataTypes.h"
 
 @class PGView;
 
@@ -18,8 +19,9 @@
 
 @interface PGView : UIView
 
+@property (unsafe_unretained, nonatomic, readonly)PGRenderer renderer;
 @property (unsafe_unretained, nonatomic)id<PGViewDelegate> delegate;
 
-- (void)makeContextCurrent;
+- (BOOL)makeContextCurrent;
 
 @end

@@ -10,7 +10,7 @@
 #include <stdarg.h>
 #include "Pictogram.h"
 
-static PGLogLevel MinimumLogLevel = PGL_Warn;
+static PGLogLevel MinimumLogLevel = PGL_Error;
 
 void _pgLogv(PGLogLevel level, const char *fmt, ...)
 {
@@ -41,20 +41,20 @@ void _pgLogAnyGlErrorsv(const char *fmt, ...)
 		switch (error) 
 		{
 			case GL_INVALID_ENUM:     
-				printf("  Invalid enum.\n");
+				printf(" - Invalid enum.\n");
 				break;
 			case GL_INVALID_VALUE:    
-				printf("  Invalid value.\n");
+				printf(" - Invalid value.\n");
 				break;
 			case GL_INVALID_OPERATION:
-				printf("  Invalid operation.\n");
+				printf(" - Invalid operation.\n");
 				break;
 			case GL_OUT_OF_MEMORY:    
-				printf("  Out of memory.\n");
+				printf(" - Out of memory.\n");
 				break;
 				
 			default:
-				printf("  Unrecognised gl error code: %d\n", error);
+				printf(" - Unrecognised gl error code: %d\n", error);
 				break;
 		}
 	}

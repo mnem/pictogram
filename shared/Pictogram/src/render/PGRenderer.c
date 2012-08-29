@@ -13,16 +13,16 @@
 const int NUM_FRAME_BUFFERS = 1;
 const int NUM_RENDER_BUFFERS = 1;
 
-typedef struct _PGRenderer {
+struct PGRendererPrivate {
     GLuint renderbuffer;
     GLuint framebuffer;
 	// Currently active settings
 	PGProgram activeProgram;
-} _PGRenderer;
+};
 
 static void clearRendererContext(PGRenderer renderer)
 {
-	memset(renderer, 0, sizeof(_PGRenderer));
+	memset(renderer, 0, sizeof(struct PGRendererPrivate));
 	
 	renderer->activeProgram = NULL;
 }
@@ -35,7 +35,7 @@ PGResult pgRendererCreate(PGRenderer *renderer)
 	}
 	*renderer = NULL;
 	
-	PGRenderer r = malloc(sizeof(_PGRenderer));
+	PGRenderer r = malloc(sizeof(struct PGRendererPrivate));
 	if (NULL == r) return PGR_OutOfMemory;
 	*renderer = r;
 	clearRendererContext(r);
@@ -56,7 +56,7 @@ void pgRendererDestroy(PGRenderer *renderer)
 		glDeleteFramebuffers(1, &r->framebuffer);
 		glDeleteRenderbuffers(1, &r->renderbuffer);
 		
-		memset(r, 0, sizeof(_PGRenderer));
+		memset(r, 0, sizeof(struct PGRendererPrivate));
 		free(r);
 		
 		*renderer = NULL;
@@ -84,6 +84,7 @@ PGResult pgRendererUseProgram(PGRenderer renderer, PGProgram program)
 	if(program != renderer->activeProgram)
 	{
 		glUseProgram(pgProgramGlHandle(program));
+		renderer->activeProgram = program;
 	}
 	return PGR_OK;
 }

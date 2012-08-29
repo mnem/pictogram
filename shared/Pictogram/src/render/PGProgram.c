@@ -10,16 +10,16 @@
 #include "Pictogram.h"
 
 #define UNKNOWN (1)
-typedef struct {
+struct PGProgramVariable {
 	UT_hash_handle hh;  /* makes this structure hashable     */
 	GLint location;     /* variable's location               */
 	GLint size;
 	GLenum type;
 	char name[UNKNOWN]; /* variable's name. Key for the hash. Actual size made by magic */
-} PGProgramVariable;
+};
 #undef UNKNOWN
 
-typedef struct _PGProgram {
+struct PGProgramPrivate {
 	GLuint program; /* This must always be the first member so we can masquerade as a GLuint pointer */
 	GLuint vertexShader;
 	GLuint fragmentShader;
@@ -28,15 +28,16 @@ typedef struct _PGProgram {
 	GLchar *vertexShaderCompileLog;
 	GLchar *fragmentShaderCompileLog;
 	
-	PGProgramVariable *attributesHash;
-	PGProgramVariable *uniformsHash;
-} _PGProgram;
+	struct PGProgramVariable *attributesHash;
+	struct PGProgramVariable *uniformsHash;
+};
 
 /**
  * Used to pass the relevant Attrib or Uniform query function for extracting variables
  * from programs
  */
-typedef void (*GetVariableFn)(GLuint, GLuint, GLsizei, GLsizei *, GLint *, GLenum *, GLchar *);
+typedef void (*GetActiveVariableFn)(GLuint, GLuint, GLsizei, GLsizei *, GLint *, GLenum *, GLchar *);
+typedef GLint (*GetVariableLocationFn)(GLuint, const GLchar *);
 
 static PGResult pgCompileShaderString(GLuint *outShader, GLenum type, const char *source, GLchar **outLog)
 {
@@ -147,10 +148,10 @@ static PGResult pgLinkProgram(GLuint program, GLuint vertexShader, GLuint fragme
 	return PGR_OK;
 }
 
-static GLint pgProgramVariableLocation(PGProgramVariable *hash, const char* name)
+static GLint pgProgramVariableLocation(struct PGProgramVariable *hash, const char* name)
 {
 	if (NULL == hash || NULL == name) return -1;
-	PGProgramVariable *var = NULL;
+	struct PGProgramVariable *var = NULL;
 	
 	HASH_FIND_STR(hash, name, var);
 	
@@ -164,13 +165,13 @@ static GLint pgProgramVariableLocation(PGProgramVariable *hash, const char* name
 	}
 }
 
-static GLenum pgProgramVariableType(PGProgramVariable *hash, const char* name)
+static GLenum pgProgramVariableType(struct PGProgramVariable *hash, const char* name)
 {
 	// TODO: Check if it's actually valid to return GL_INVALID_ENUM, that
 	// is it won't clash with an enum. I'm not sure what context it's
 	// used in (i.e. is it an error code or an enum?)
 	if (NULL == hash || NULL == name) return GL_INVALID_ENUM;
-	PGProgramVariable *var = NULL;
+	struct PGProgramVariable *var = NULL;
 	
 	HASH_FIND_STR(hash, name, var);
 	
@@ -184,10 +185,10 @@ static GLenum pgProgramVariableType(PGProgramVariable *hash, const char* name)
 	}
 }
 
-static GLsizei pgProgramVariableSize(PGProgramVariable *hash, const char* name)
+static GLsizei pgProgramVariableSize(struct PGProgramVariable *hash, const char* name)
 {
 	if (NULL == hash || NULL == name) return 0;
-	PGProgramVariable *var = NULL;
+	struct PGProgramVariable *var = NULL;
 	
 	HASH_FIND_STR(hash, name, var);
 	
@@ -201,11 +202,11 @@ static GLsizei pgProgramVariableSize(PGProgramVariable *hash, const char* name)
 	}
 }
 
-static void destroyProgramVariablesHash(PGProgramVariable **hash_)
+static void destroyProgramVariablesHash(struct PGProgramVariable **hash_)
 {
 	if (NULL != hash_) 
 	{
-		PGProgramVariable *current, *temp, *hash = *hash_;
+		struct PGProgramVariable *current, *temp, *hash = *hash_;
 		HASH_ITER(hh, hash, current, temp) 
 		{
 			HASH_DEL(hash, current);
@@ -215,13 +216,13 @@ static void destroyProgramVariablesHash(PGProgramVariable **hash_)
 	}
 }
 
-static void extractVariables(GLuint program, PGProgramVariable **hash_, GetVariableFn get, GLint numVariables, GLint maxVariableLength)
+static void extractVariables(GLuint program, struct PGProgramVariable **hash_, GetActiveVariableFn get, GetVariableLocationFn loc, GLint numVariables, GLint maxVariableLength)
 {
 	destroyProgramVariablesHash(hash_);
 	
 	if (NULL != hash_ && numVariables > 0 && maxVariableLength > 0)
 	{		
-		PGProgramVariable *hash = *hash_;
+		struct PGProgramVariable *hash = *hash_;
 		assert(HASH_COUNT(hash) == 0);
 		GLchar name[maxVariableLength];
 		for (GLuint attrIndex = 0; attrIndex < numVariables; attrIndex++)
@@ -233,10 +234,10 @@ static void extractVariables(GLuint program, PGProgramVariable **hash_, GetVaria
 			get(program, attrIndex, maxVariableLength, &nameLength, &size, &type, name);
 			if (nameLength > 0)
 			{
-				size_t recordSize = offsetof(PGProgramVariable, name) + nameLength + 1; /* nul */
-				PGProgramVariable *var = malloc(recordSize);
+				size_t recordSize = offsetof(struct PGProgramVariable, name) + nameLength + 1; /* nul */
+				struct PGProgramVariable *var = malloc(recordSize);
 				memset(var, 0, recordSize);
-				var->location = attrIndex;
+				var->location = loc(program, name);
 				var->size = size;
 				if (var->size > 1)
 				{
@@ -265,12 +266,13 @@ PGResult pgProgramCreateAndBuild(PGProgram *program, const char *vertexSource, c
 	if (NULL == vertexSource || NULL == fragmentSource) return PGR_NullPointerBarf;
 	
 	// Create the structure to hold the details ////////////////////////////
-	PGProgram p = malloc(sizeof(_PGProgram));
+	PGProgram p = malloc(sizeof(struct PGProgramPrivate));
 	if (NULL == p) return PGR_OutOfMemory;
 	*program = p;
-	memset(p, 0, sizeof(_PGProgram));
+	memset(p, 0, sizeof(struct PGProgramPrivate));
 	
 	// Load the shaders ////////////////////////////////////////////////////
+	pgLogAnyGlErrors("About to load shaders.");
 	PGResult result;
 	result = pgCompileShaderFile(&p->vertexShader, 
 								 GL_VERTEX_SHADER, 
@@ -304,11 +306,11 @@ PGResult pgProgramCreateAndBuild(PGProgram *program, const char *vertexSource, c
 	
 	glGetProgramiv(p->program, GL_ACTIVE_ATTRIBUTES, &numVars);
 	glGetProgramiv(p->program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &varNameMax);
-	extractVariables(p->program, &p->attributesHash, glGetActiveAttrib, numVars, varNameMax); 
+	extractVariables(p->program, &p->attributesHash, glGetActiveAttrib, glGetAttribLocation, numVars, varNameMax);
 	
 	glGetProgramiv(p->program, GL_ACTIVE_UNIFORMS, &numVars);
 	glGetProgramiv(p->program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &varNameMax);
-	extractVariables(p->program, &p->uniformsHash, glGetActiveUniform, numVars, varNameMax); 
+	extractVariables(p->program, &p->uniformsHash, glGetActiveUniform, glGetUniformLocation, numVars, varNameMax);
 	
 	return PGR_OK;
 }
@@ -342,7 +344,7 @@ void pgProgramDestroy(PGProgram *program)
 		assert(p->uniformsHash == NULL);
 
 		// Free the PGProgram //////////////////////////////////////////////
-		memset(p, 0, sizeof(_PGProgram));
+		memset(p, 0, sizeof(struct PGProgramPrivate));
 		free(p);
 		
 		*program = NULL;

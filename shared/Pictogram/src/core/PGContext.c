@@ -10,9 +10,9 @@
 #include <assert.h>
 #include "Pictogram.h"
 
-typedef struct _PGContext {
+struct PGContextPrivate {
 	int nothing;
-} _PGContext;
+};
 
 PGResult pgContextCreate(PGContext *context)
 {
@@ -22,10 +22,10 @@ PGResult pgContextCreate(PGContext *context)
 	}
 	*context = NULL;
 	
-	PGContext c = malloc(sizeof(_PGContext));
+	PGContext c = malloc(sizeof(struct PGContextPrivate));
 	if (NULL == c) return PGR_OutOfMemory;
 	*context = c;
-	memset(c, 0, sizeof(_PGContext));
+	memset(c, 0, sizeof(struct PGContextPrivate));
 	
 	return PGR_OK;
 }
@@ -36,7 +36,7 @@ void pgContextDestroy(PGContext *context)
 	{
 		PGContext c = *context;
 		
-		memset(c, 0, sizeof(_PGContext));
+		memset(c, 0, sizeof(struct PGContextPrivate));
 		free(c);
 		
 		*context = NULL;

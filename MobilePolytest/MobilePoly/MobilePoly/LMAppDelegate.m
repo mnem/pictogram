@@ -16,25 +16,40 @@
 #endif
 
 #import "Pictogram.h"
+#import "PGView.h"
 
 @implementation LMAppDelegate
 
 @synthesize window = _window;
+@synthesize view = _view;
 @synthesize viewController = _viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	pgLogSetLevel(PGL_Debug);
-	
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+	CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    self.window = [[UIWindow alloc] initWithFrame:screenBounds];
+
+//    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+//
+//    m_window = [[UIWindow alloc] initWithFrame: screenBounds];
+	self.view = [[PGView alloc] initWithFrame: screenBounds];
+	[self.window addSubview:self.view];
+	[self.window makeKeyAndVisible];
+//
+//    [m_window addSubview: m_view];
+//    [m_window makeKeyAndVisible];
+
     // Override point for customization after application launch.
-	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-	    self.viewController = [[LMViewController alloc] initWithNibName:@"LMViewController_iPhone" bundle:nil];
-	} else {
-	    self.viewController = [[LMViewController alloc] initWithNibName:@"LMViewController_iPad" bundle:nil];
-	}
-	self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
+//	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+//	    self.viewController = [[LMViewController alloc] initWithNibName:@"LMViewController_iPhone" bundle:nil];
+//	} else {
+//	    self.viewController = [[LMViewController alloc] initWithNibName:@"LMViewController_iPad" bundle:nil];
+//	}
+//	self.window.rootViewController = self.viewController;
+//    [self.window makeKeyAndVisible];
+
 	
 #ifdef RUN_PG_TESTS
 	NSString *testRoot = [[NSBundle mainBundle] pathForResource:@"test_01" ofType:@"fsh" inDirectory:@"test_assets"];

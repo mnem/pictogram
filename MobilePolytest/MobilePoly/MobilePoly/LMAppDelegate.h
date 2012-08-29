@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class LMViewController;
+@class LMViewController, PGView;
 
 @interface LMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) PGView *view;
 @property (strong, nonatomic) LMViewController *viewController;
 
 @end
